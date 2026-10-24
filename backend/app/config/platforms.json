@@ -1,0 +1,63 @@
+{
+  "_notice": "Editable starting-point guidance for creative planning. NOT a statement of any platform's current advertising policy. Always check the platform's own rules before publishing.",
+  "universal_checklist": [
+    "Every factual or performance claim is backed by evidence you hold.",
+    "No fabricated reviews, testimonials, or endorsements. Testimonial-style scripts are labelled fictional or filled in by a real customer.",
+    "Words/claims your brand asked to avoid do not appear.",
+    "Music, fonts, footage and any third-party assets are licensed for advertising.",
+    "Required ad / AI-content disclosures for your region and platform are added.",
+    "The current advertising policies of the target platform have been checked."
+  ],
+  "platforms": {
+    "instagram_reels": {
+      "label": "Instagram Reels",
+      "duration_seconds": {"min": 7, "max": 60, "suggested": 30},
+      "hook_window_seconds": 3,
+      "visual_format": "Vertical 9:16, creator-style, captions burned in",
+      "caption_guidance": "Short first line that works before the 'more' cut-off, then 1-2 lines of value, then CTA.",
+      "cta_placement": "Spoken near the end plus on-screen text and caption.",
+      "hashtag_strategy": "3-8 specific hashtags mixing niche and broad.",
+      "checklist": ["Key text sits inside safe zones away from UI overlays.", "Video works muted (captions on)."]
+    },
+    "facebook_video": {
+      "label": "Facebook video ad",
+      "duration_seconds": {"min": 10, "max": 90, "suggested": 30},
+      "hook_window_seconds": 3,
+      "visual_format": "Vertical 9:16 or square 1:1, captions burned in",
+      "caption_guidance": "Primary text up front with benefit and offer; keep the link headline short.",
+      "cta_placement": "On-screen end card plus the ad's CTA button.",
+      "hashtag_strategy": "0-3 hashtags; they matter less than copy.",
+      "checklist": ["Offer terms in the ad match the landing page.", "Video works muted (captions on)."]
+    },
+    "youtube_shorts": {
+      "label": "YouTube Shorts",
+      "duration_seconds": {"min": 10, "max": 60, "suggested": 30},
+      "hook_window_seconds": 2,
+      "visual_format": "Vertical 9:16, fast pacing",
+      "caption_guidance": "Keyword-led title plus a short description with the CTA link.",
+      "cta_placement": "Spoken in the last third plus pinned comment or description link.",
+      "hashtag_strategy": "2-4 hashtags, topic keywords first.",
+      "checklist": ["Title is accurate and not clickbait.", "Loop-friendly ending considered."]
+    },
+    "tiktok": {
+      "label": "TikTok-style short",
+      "duration_seconds": {"min": 9, "max": 60, "suggested": 25},
+      "hook_window_seconds": 2,
+      "visual_format": "Vertical 9:16, native handheld feel, on-screen text",
+      "caption_guidance": "One punchy line plus a question or prompt to comment.",
+      "cta_placement": "Mid-video soft CTA and a clear end CTA.",
+      "hashtag_strategy": "3-5 hashtags mixing trend-neutral niche tags.",
+      "checklist": ["Trending audio, if used, is cleared for commercial use.", "Looks native rather than like a polished TV ad."]
+    },
+    "website_video": {
+      "label": "Website promotional video",
+      "duration_seconds": {"min": 20, "max": 120, "suggested": 45},
+      "hook_window_seconds": 5,
+      "visual_format": "Horizontal 16:9 or responsive, clean and brand-led",
+      "caption_guidance": "Short descriptive caption suitable for the page and for accessibility.",
+      "cta_placement": "End screen plus an on-page button beside the video.",
+      "hashtag_strategy": "Hashtags are not needed; provide keywords for page SEO instead.",
+      "checklist": ["Subtitles / transcript provided for accessibility.", "Video file size is optimised for page load."]
+    }
+  }
+}
