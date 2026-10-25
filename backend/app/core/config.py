@@ -13,7 +13,7 @@ class Settings(BaseSettings):
     secret_key: str = INSECURE_DEFAULT_KEY
     access_token_minutes: int = 60
     cookie_name: str = "adcraft_token"
-    cookie_secure: bool = False
+    cookie_secure: bool = True
     allowed_origins: str = "http://localhost:5173,http://localhost:8080"
 
     rate_limit_enabled: bool = True
