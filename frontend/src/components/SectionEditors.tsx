@@ -14,28 +14,33 @@ const num = (s: string): number => {
 };
 
 const asObject = (value: P): Record<string, any> =>
-  value && typeof value === 'object' && !Array.isArray(value)
+  value !== null &&
+  typeof value === 'object' &&
+  !Array.isArray(value)
     ? value
     : {};
 
 const asArray = (value: P): any[] =>
   Array.isArray(value) ? value : [];
 
+const asText = (value: P): string =>
+  value == null ? '' : String(value);
+
 export function ScriptEditor({ value, onChange }: Props) {
   const data = asObject(value);
   const scenes = asArray(data.scenes);
 
-  const set = (patch: P) => onChange({ ...data, ...patch });
+  const set = (patch: P) =>
+    onChange({ ...data, ...patch });
 
-  const setScene = (index: number, patch: P) => {
+  const setScene = (index: number, patch: P) =>
     set({
       scenes: scenes.map((scene: P, i: number) =>
         i === index ? { ...asObject(scene), ...patch } : scene
       ),
     });
-  };
 
-  const addScene = () => {
+  const addScene = () =>
     set({
       scenes: [
         ...scenes,
@@ -50,9 +55,8 @@ export function ScriptEditor({ value, onChange }: Props) {
         },
       ],
     });
-  };
 
-  const removeScene = (index: number) => {
+  const removeScene = (index: number) =>
     set({
       scenes: scenes
         .filter((_: P, i: number) => i !== index)
@@ -61,7 +65,6 @@ export function ScriptEditor({ value, onChange }: Props) {
           scene_number: i + 1,
         })),
     });
-  };
 
   return (
     <div className="space-y-3">
@@ -70,7 +73,7 @@ export function ScriptEditor({ value, onChange }: Props) {
           Title
           <input
             className="input mt-1"
-            value={data.title ?? ''}
+            value={asText(data.title)}
             onChange={(e) => set({ title: e.target.value })}
           />
         </label>
@@ -119,7 +122,7 @@ export function ScriptEditor({ value, onChange }: Props) {
                 Transition
                 <input
                   className="input mt-1"
-                  value={s.transition ?? ''}
+                  value={asText(s.transition)}
                   onChange={(e) =>
                     setScene(index, { transition: e.target.value })
                   }
@@ -131,7 +134,7 @@ export function ScriptEditor({ value, onChange }: Props) {
                 <textarea
                   rows={2}
                   className="input mt-1"
-                  value={s.visual_direction ?? ''}
+                  value={asText(s.visual_direction)}
                   onChange={(e) =>
                     setScene(index, { visual_direction: e.target.value })
                   }
@@ -143,7 +146,7 @@ export function ScriptEditor({ value, onChange }: Props) {
                 <textarea
                   rows={2}
                   className="input mt-1"
-                  value={s.dialogue ?? ''}
+                  value={asText(s.dialogue)}
                   onChange={(e) =>
                     setScene(index, { dialogue: e.target.value })
                   }
@@ -154,7 +157,7 @@ export function ScriptEditor({ value, onChange }: Props) {
                 On-screen text
                 <input
                   className="input mt-1"
-                  value={s.on_screen_text ?? ''}
+                  value={asText(s.on_screen_text)}
                   onChange={(e) =>
                     setScene(index, { on_screen_text: e.target.value })
                   }
@@ -165,7 +168,7 @@ export function ScriptEditor({ value, onChange }: Props) {
                 Audio / music
                 <input
                   className="input mt-1"
-                  value={s.audio_direction ?? ''}
+                  value={asText(s.audio_direction)}
                   onChange={(e) =>
                     setScene(index, { audio_direction: e.target.value })
                   }
@@ -199,7 +202,7 @@ export function ScriptEditor({ value, onChange }: Props) {
         <textarea
           rows={3}
           className="input mt-1"
-          value={data.voice_over ?? ''}
+          value={asText(data.voice_over)}
           onChange={(e) => set({ voice_over: e.target.value })}
         />
       </label>
@@ -222,7 +225,7 @@ export function SectionEditor({
           aria-label={section}
           rows={4}
           className="input"
-          value={data.text ?? ''}
+          value={asText(data.text)}
           onChange={(e) =>
             onChange({ ...data, text: e.target.value })
           }
@@ -257,7 +260,7 @@ export function SectionEditor({
             Primary CTA
             <input
               className="input mt-1"
-              value={data.primary ?? ''}
+              value={asText(data.primary)}
               onChange={(e) =>
                 onChange({ ...data, primary: e.target.value })
               }
@@ -346,7 +349,7 @@ export function SectionEditor({
               <input
                 className="input mt-1"
                 type={typeof item === 'number' ? 'number' : 'text'}
-                value={item == null ? '' : String(item)}
+                value={asText(item)}
                 onChange={(e) =>
                   onChange({
                     ...data,
@@ -374,6 +377,16 @@ export function SectionEditor({
           {items.map((claim: P, index: number) => {
             const item = asObject(claim);
 
+            const updateClaim = (patch: P) =>
+              onChange({
+                ...data,
+                items: items.map((current: P, i: number) =>
+                  i === index
+                    ? { ...asObject(current), ...patch }
+                    : current
+                ),
+              });
+
             return (
               <div
                 key={index}
@@ -382,16 +395,9 @@ export function SectionEditor({
                 <input
                   aria-label="Claim"
                   className="input sm:col-span-3"
-                  value={item.claim ?? ''}
+                  value={asText(item.claim)}
                   onChange={(e) =>
-                    onChange({
-                      ...data,
-                      items: items.map((current: P, i: number) =>
-                        i === index
-                          ? { ...asObject(current), claim: e.target.value }
-                          : current
-                      ),
-                    })
+                    updateClaim({ claim: e.target.value })
                   }
                 />
 
@@ -400,14 +406,7 @@ export function SectionEditor({
                   className="input sm:col-span-1"
                   value={item.status ?? 'needs_verification'}
                   onChange={(e) =>
-                    onChange({
-                      ...data,
-                      items: items.map((current: P, i: number) =>
-                        i === index
-                          ? { ...asObject(current), status: e.target.value }
-                          : current
-                      ),
-                    })
+                    updateClaim({ status: e.target.value })
                   }
                 >
                   <option value="supported">supported</option>
@@ -420,16 +419,9 @@ export function SectionEditor({
                 <input
                   aria-label="Note"
                   className="input sm:col-span-2"
-                  value={item.note ?? ''}
+                  value={asText(item.note)}
                   onChange={(e) =>
-                    onChange({
-                      ...data,
-                      items: items.map((current: P, i: number) =>
-                        i === index
-                          ? { ...asObject(current), note: e.target.value }
-                          : current
-                      ),
-                    })
+                    updateClaim({ note: e.target.value })
                   }
                 />
               </div>
