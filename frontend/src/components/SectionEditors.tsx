@@ -67,10 +67,27 @@ export function SectionEditor({ section, value, onChange }: { section: string } 
     case 'adaptation':
       return (
         <div className="grid gap-2 sm:grid-cols-2">
-          {Object.entries(value).map(([k, v]) => (
-            <label key={k} className="text-xs">{k.replace(/_/g, ' ')}
-              <input className="input mt-1" type={typeof v === 'number' ? 'number' : 'text'} value={v as any}
-                onChange={(e) => onChange({ ...value, [k]: typeof v === 'number' ? num(e.target.value) : e.target.value })} /></label>))}
+         
+{Object.entries(value ?? {}).map(([k, v]) => (
+  <label key={k} className="text-xs">
+    {k.replace(/_/g, ' ')}
+    <input
+      className="input mt-1"
+      type={typeof v === 'number' ? 'number' : 'text'}
+      value={v ?? ''}
+      onChange={(e) =>
+        onChange({
+          ...(value ?? {}),
+          [k]:
+            typeof v === 'number'
+              ? num(e.target.value)
+              : e.target.value,
+        })
+      }
+    />
+  </label>
+))}
+
         </div>)
     case 'claims_review':
       return (
